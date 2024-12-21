@@ -1,0 +1,297 @@
+/* 基础样式 */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #f8fafc;
+  color: #334155;
+}
+
+/* 页面标题样式 */
+.page-title {
+  text-align: center;
+  margin: 40px auto 20px;
+  color: #1e293b;
+  font-size: 32px;
+  font-weight: 600;
+  background: linear-gradient(120deg, #3498db, #2dd4bf);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 0 20px;
+  font-size: clamp(24px, 5vw, 32px);
+  margin: 30px auto 15px;
+  padding: 0 15px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #64748b;
+  font-size: 16px;
+  margin-bottom: 40px;
+  font-weight: normal;
+  font-size: clamp(14px, 3vw, 16px);
+  margin-bottom: 30px;
+  padding: 0 15px;
+}
+
+/* 时间线容器 */
+.timeline {
+  position: relative;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px 0;
+}
+
+.timeline::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  background: linear-gradient(to bottom, #3498db 60%, transparent);
+  top: 0;
+  height: calc(100% - 160px);
+  left: 50%;
+  margin-left: -2px;
+}
+
+/* 时间线项目容器 */
+.container {
+  padding: 5px 10px;
+  position: relative;
+  background-color: inherit;
+  width: 50%;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out;
+}
+
+.container.left {
+  left: 0;
+}
+
+.container.right {
+  left: 50%;
+}
+
+/* 内容卡片样式 */
+.content {
+  padding: 20px;
+  background-color: white;
+  position: relative;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  padding: clamp(15px, 3vw, 20px);
+}
+
+.content:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.container.left .content {
+  margin-right: 60px;
+}
+
+.container.right .content {
+  margin-left: 60px;
+}
+
+/* 时间点和连接线 */
+.container.left::before,
+.container.right::before {
+  content: "";
+  height: 8px;
+  width: 8px;
+  background-color: #3498db;
+  position: absolute;
+  top: 15px;
+  border-radius: 50%;
+  z-index: 1;
+  animation: pulse 2s infinite;
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px #3498db;
+}
+
+.container.left::after,
+.container.right::after {
+  content: "";
+  position: absolute;
+  top: 18px;
+  width: 60px;
+  height: 2px;
+  border-top: 2px dashed rgba(52, 152, 219, 0.3);
+}
+
+.container.left::after {
+  right: 10px;
+}
+
+.container.right::after {
+  left: 10px;
+}
+
+/* 标题样式 */
+h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: clamp(16px, 4vw, 18px);
+}
+
+h2::before {
+  content: attr(data-year);
+  font-size: 14px;
+  font-weight: normal;
+  color: #3498db;
+  background: rgba(52, 152, 219, 0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* 内容详情样式 */
+.content-details {
+  margin-top: 12px;
+  display: grid;
+  gap: 8px;
+}
+
+.tech-stack {
+  font-size: 13px;
+  color: #64748b;
+  padding: 4px 0;
+  font-size: clamp(12px, 3vw, 13px);
+  line-height: 1.5;
+}
+
+.metrics {
+  font-size: 13px;
+  color: #0f766e;
+  background: #f0fdfa;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border-left: 3px solid #2dd4bf;
+  font-size: clamp(12px, 3vw, 13px);
+  line-height: 1.5;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-right: 6px;
+  background: #e2e8f0;
+  color: #475569;
+}
+
+/* 二维码容器 */
+.qr-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.qr-code {
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  padding: 8px;
+}
+
+/* 动画效果 */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(52, 152, 219, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(52, 152, 219, 0);
+  }
+}
+
+.container.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .timeline {
+    padding: 15px;
+    margin: 20px auto;
+  }
+
+  .timeline::after {
+    left: 20px;
+  }
+
+  .container {
+    width: 100%;
+    padding-left: 35px;
+    padding-right: 10px;
+  }
+
+  .container.left,
+  .container.right {
+    left: 0;
+  }
+
+  .container.left .content,
+  .container.right .content {
+    margin: 10px 0;
+  }
+
+  .container.left::before,
+  .container.right::before {
+    left: 12px;
+  }
+
+  .container.left::after,
+  .container.right::after {
+    left: 20px;
+    width: 30px;
+  }
+
+  .content-details {
+    gap: 10px;
+  }
+
+  .metrics {
+    padding: 8px 10px;
+  }
+
+  .tag {
+    margin-bottom: 4px;
+  }
+
+  .qr-code {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline {
+    padding: 10px;
+  }
+
+  .content {
+    padding: 12px;
+  }
+
+  .metrics {
+    padding: 6px 8px;
+  }
+
+  h2::before {
+    font-size: 12px;
+    padding: 1px 6px;
+  }
+}
