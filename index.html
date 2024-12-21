@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Programming Timeline</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        background-color: #f8fafc;
+        color: #334155;
+      }
+      .timeline {
+        position: relative;
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 20px 0;
+      }
+      .timeline::after {
+        content: "";
+        position: absolute;
+        width: 4px;
+        background: linear-gradient(to bottom, #3498db 60%, transparent);
+        top: 0;
+        height: calc(100% - 160px);
+        left: 50%;
+        margin-left: -2px;
+      }
+      .container {
+        padding: 5px 10px;
+        position: relative;
+        background-color: inherit;
+        width: 50%;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.8s ease-out;
+      }
+      .container.left {
+        left: 0;
+      }
+      .container.right {
+        left: 50%;
+      }
+      .content {
+        padding: 20px;
+        background-color: white;
+        position: relative;
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      .content:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .container.left .content {
+        margin-right: 60px;
+      }
+      .container.right .content {
+        margin-left: 60px;
+      }
+      .container.left::before,
+      .container.right::before {
+        content: "";
+        height: 8px;
+        width: 8px;
+        background-color: #3498db;
+        position: absolute;
+        top: 15px;
+        border-radius: 50%;
+        z-index: 1;
+        animation: pulse 2s infinite;
+      }
+      .container.left::before,
+      .container.right::before {
+        border: 2px solid white;
+        box-shadow: 0 0 0 2px #3498db;
+      }
+      .container.left::after,
+      .container.right::after {
+        content: "";
+        position: absolute;
+        top: 18px;
+        width: 60px;
+        height: 2px;
+        border-top: 2px dashed rgba(52, 152, 219, 0.3);
+      }
+      .container.left::after {
+        right: 10px;
+      }
+      .container.right::after {
+        left: 10px;
+      }
+      h2 {
+        margin: 0;
+        font-size: 18px;
+        color: #1e293b;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      h2::before {
+        content: attr(data-year);
+        font-size: 14px;
+        font-weight: normal;
+        color: #3498db;
+        background: rgba(52, 152, 219, 0.1);
+        padding: 2px 8px;
+        border-radius: 4px;
+      }
+      .content-details {
+        margin-top: 12px;
+        display: grid;
+        gap: 8px;
+      }
+      .tech-stack {
+        font-size: 13px;
+        color: #64748b;
+        padding: 4px 0;
+      }
+      .metrics {
+        font-size: 13px;
+        color: #0f766e;
+        background: #f0fdfa;
+        padding: 6px 12px;
+        border-radius: 6px;
+        border-left: 3px solid #2dd4bf;
+      }
+      .tag {
+        display: inline-block;
+        font-size: 12px;
+        padding: 2px 8px;
+        border-radius: 4px;
+        margin-right: 6px;
+        background: #e2e8f0;
+        color: #475569;
+      }
+      .qr-container {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 20px 0;
+      }
+      .qr-code {
+        width: 120px;
+        height: 120px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        background-color: white;
+        padding: 8px;
+      }
+      @media (max-width: 768px) {
+        .timeline {
+          padding: 15px;
+        }
+        .container {
+          width: 100%;
+          left: 0;
+        }
+        .container.right {
+          left: 0;
+        }
+        .content {
+          margin: 10px 0;
+        }
+      }
+      .page-title {
+        text-align: center;
+        margin: 40px auto 20px;
+        color: #1e293b;
+        font-size: 32px;
+        font-weight: 600;
+        background: linear-gradient(120deg, #3498db, #2dd4bf);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        padding: 0 20px;
+      }
+
+      .subtitle {
+        text-align: center;
+        color: #64748b;
+        font-size: 16px;
+        margin-bottom: 40px;
+        font-weight: normal;
+      }
+
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(52, 152, 219, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(52, 152, 219, 0);
+        }
+      }
+
+      .container.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .page-title {
+        font-size: clamp(24px, 5vw, 32px);
+        margin: 30px auto 15px;
+        padding: 0 15px;
+      }
+
+      .subtitle {
+        font-size: clamp(14px, 3vw, 16px);
+        margin-bottom: 30px;
+        padding: 0 15px;
+      }
+
+      .content {
+        padding: clamp(15px, 3vw, 20px);
+      }
+
+      h2 {
+        font-size: clamp(16px, 4vw, 18px);
+      }
+
+      .tech-stack,
+      .metrics {
+        font-size: clamp(12px, 3vw, 13px);
+        line-height: 1.5;
+      }
+
+      @media (max-width: 768px) {
+        .timeline {
+          padding: 15px;
+          margin: 20px auto;
+        }
+
+        .timeline::after {
+          left: 20px;
+        }
+
+        .container {
+          width: 100%;
+          padding-left: 35px;
+          padding-right: 10px;
+        }
+
+        .container.left,
+        .container.right {
+          left: 0;
+        }
+
+        .container.left .content,
+        .container.right .content {
+          margin: 10px 0;
+        }
+
+        .container.left::before,
+        .container.right::before {
+          left: 12px;
+        }
+
+        .container.left::after,
+        .container.right::after {
+          left: 20px;
+          width: 30px;
+        }
+
+        .content-details {
+          gap: 10px;
+        }
+
+        .metrics {
+          padding: 8px 10px;
+        }
+
+        .tag {
+          margin-bottom: 4px;
+        }
+
+        .qr-code {
+          width: 100px;
+          height: 100px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .timeline {
+          padding: 10px;
+        }
+
+        .content {
+          padding: 12px;
+        }
+
+        .metrics {
+          padding: 6px 8px;
+        }
+
+        h2::before {
+          font-size: 12px;
+          padding: 1px 6px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="page-title">AI编程：新纪元进化时间线</h1>
+    <p class="subtitle">2024-2035 AI编程能力突破性预测</p>
+    <div class="timeline">
+      <div class="container left">
+        <div class="content">
+          <h2 data-year="2024">全栈应用 (o3)</h2>
+          <div class="content-details">
+            <div>
+              <span class="tag">博客系统</span>
+              <span class="tag">社区论坛</span>
+            </div>
+            <div class="tech-stack">
+              <strong>技术栈:</strong> React/Vue + Node.js + SQL/NoSQL
+            </div>
+            <div class="metrics">
+              <strong>性能指标:</strong> 周活1000用户, 99%可用性
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container right">
+        <div class="content">
+          <h2 data-year="2025">SaaS平台 (o4)</h2>
+          <div class="content-details">
+            <div class="tech-stack">技术栈: 微服务架构 + 云原生</div>
+            <div class="metrics">指标: 并发1000+,毫秒级响应</div>
+          </div>
+        </div>
+      </div>
+      <div class="container left">
+        <div class="content">
+          <h2 data-year="2026">企业级应用 (o5)</h2>
+          <div class="content-details">
+            <div class="tech-stack">技术栈: 分布式架构 + 容器化</div>
+            <div class="metrics">指标: 支持100+企业用户,7x24运维</div>
+          </div>
+        </div>
+      </div>
+      <div class="container right">
+        <div class="content">
+          <h2 data-year="2027">多媒体平台 (o6)</h2>
+          <div class="content-details">
+            <div class="tech-stack">技术栈: 流媒体处理 + CDN分发</div>
+            <div class="metrics">指标: 百万级DAU,全球化部署</div>
+          </div>
+        </div>
+      </div>
+      <div class="container left">
+        <div class="content">
+          <h2 data-year="2029">AI驱动应用 (o7)</h2>
+          <div class="content-details">
+            <div class="tech-stack">技术栈: 机器学习 + 实时计算</div>
+            <div class="metrics">指标: 毫秒级推断,千万级数据训练</div>
+          </div>
+        </div>
+      </div>
+      <div class="container right">
+        <div class="content">
+          <h2 data-year="2031">元宇宙应用 (o8)</h2>
+          <div class="content-details">
+            <div class="tech-stack">技术栈: WebGL + WebXR + 实时3D引擎</div>
+            <div class="metrics">指标: 60fps渲染,毫秒级延迟</div>
+          </div>
+        </div>
+      </div>
+      <div class="container left">
+        <div class="content">
+          <h2 data-year="2033">量子计算应用 (o9)</h2>
+          <div class="content-details">
+            <div class="tech-stack">技术栈: 量子编程框架</div>
+            <div class="metrics">指标: 优于经典算法1000倍</div>
+          </div>
+        </div>
+      </div>
+      <div class="container right">
+        <div class="content">
+          <h2 data-year="2035">脑机接口应用 (o10)</h2>
+          <div class="content-details">
+            <div class="tech-stack">技术栈: 神经信号处理 + 脑机协议</div>
+            <div class="metrics">指标: 亚毫秒延迟,99.999%准确率</div>
+          </div>
+        </div>
+      </div>
+      <div class="qr-container">
+        <img src="code.png" alt="QR Code" class="qr-code" />
+      </div>
+    </div>
+    <script>
+      // 滚动渐入效果
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        {
+          threshold: 0.1,
+        }
+      );
+
+      document.querySelectorAll(".container").forEach((container) => {
+        observer.observe(container);
+      });
+    </script>
+  </body>
+</html>
